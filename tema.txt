@@ -1,0 +1,67 @@
+OUVIDO ARTIFICIAL
+Inteligência Computacional aplicada à Música
+
+
+1. TEMA DO GRUPO
+
+Nosso grupo vai relacionar os desafios semanais da disciplina ao universo da
+música. A pergunta que guia o trabalho é: o que uma rede neural consegue
+"escutar" em uma música quando ela recebe apenas números que descrevem o som?
+
+A ideia é usar o mesmo domínio ao longo de todo o semestre, de modo que cada
+desafio semanal vire uma etapa do trabalho final, em vez de um exercício
+isolado.
+
+
+2. IDEIA CENTRAL
+
+Não vamos trabalhar com o áudio bruto. Vamos trabalhar com dados tabulares:
+cada música é uma linha de uma tabela e cada coluna é uma característica
+numérica do som, já extraída. Exemplos:
+
+  - danceability      quão dançante é a faixa (0 a 1)
+  - energy            intensidade e atividade percebida (0 a 1)
+  - valence           quão positiva ou alegre a música soa (0 a 1)
+  - acousticness      probabilidade de a faixa ser acústica (0 a 1)
+  - instrumentalness  ausência de vocal (0 a 1)
+  - speechiness       presença de fala (0 a 1)
+  - tempo             andamento em BPM
+  - loudness          volume médio em dB
+  - key e mode        tom e modo (maior ou menor)
+
+A partir desses números, o objetivo é classificar a música: dizer a qual
+gênero ela pertence e qual humor ela transmite, sem que o modelo jamais
+"ouça" a faixa.
+
+
+3. BASE DE DADOS
+
+Spotify Tracks Dataset (Kaggle), com cerca de 114 mil faixas distribuídas em
+114 gêneros, contendo as audio features calculadas pelo próprio Spotify, o
+gênero e a popularidade de cada faixa.
+
+Para manter o treino rápido e o problema bem definido, vamos trabalhar com um
+recorte de 5 a 10 mil faixas e de 5 a 8 gêneros bem distintos entre si (por
+exemplo: clássica, metal, hip-hop, samba, EDM, jazz e sertanejo).
+
+Pré-processamento previsto:
+  - remoção de faixas duplicadas pelo identificador da música, para que a
+    mesma faixa não apareça no treino e no teste
+  - normalização das colunas, já que elas têm escalas muito diferentes
+    (tempo em torno de 120, loudness entre -60 e 0, outras entre 0 e 1)
+  - codificação one-hot do tom (key), que é uma variável categórica
+
+
+4. PROPOSTA DE TRABALHO FINAL
+
+Construir um sistema que recebe as características numéricas de uma música e
+devolve:
+
+  a) o gênero musical mais provável
+  b) o humor da música (alegre, tensa, calma ou triste), definido a partir
+     dos quadrantes de valence e energy
+  c) uma lista de músicas parecidas, como uma recomendação simples
+
+O núcleo do sistema é uma rede neural do tipo MLP treinada sobre os dados
+tabulares. O trabalho final também vai comparar essa rede com modelos mais
+simples, para mostrar o que se ganha a cada aumento de complexidade.
